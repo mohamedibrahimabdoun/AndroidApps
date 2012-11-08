@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content" >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#FECA08"
+        android:orientation="vertical"
+        android:weightSum="1" >
+
+        <LinearLayout
+            android:id="@+id/LinearLayout0"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.70"
+                android:text="" >
+            </TextView>
+
+            <ImageView
+                android:id="@+id/test0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="80dip"
+                android:layout_weight="0.15"
+                android:src="@drawable/logo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="319dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="POS Type:"
+                android:textColor="#000000" >
+            </TextView>
+
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.45" >
+            </Spinner>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout2"
+            android:layout_width="323dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="POSName:"
+                android:textColor="#000000" />
+
+            <EditText
+                android:id="@+id/posname"
+                android:layout_width="201dp"
+                android:layout_height="40px"
+                android:layout_gravity="right"
+                android:layout_weight="0.52" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout3"
+            android:layout_width="323dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.22"
+                android:text="Contact:"
+                android:textColor="#000000" />
+
+            <EditText
+                android:id="@+id/contact"
+                android:layout_width="201dp"
+                android:layout_height="40px"
+                android:layout_gravity="right"
+                android:layout_weight="0.41" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout4"
+            android:layout_width="322dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.21"
+                android:text="Mobile:"
+                android:textColor="#000000" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/mobile"
+                android:layout_width="197dp"
+                android:layout_height="40px"
+                android:layout_gravity="center"
+                android:layout_weight="0.38"
+                android:inputType="number" >
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address:  "
+                android:textColor="#000000" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/address"
+                android:layout_width="195dp"
+                android:layout_height="40px"
+                android:layout_gravity="right"
+                android:layout_weight="0.52" >
+
+                
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout6"
+            android:layout_width="316dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Branding:"
+                android:textColor="#000000" >
+            </TextView>
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.45" >
+            </Spinner>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="102dp"
+            android:layout_height="wrap_content"
+            android:text="   SIM selling:"
+            android:textColor="#000000" >
+        </TextView>
+
+        <ToggleButton
+            android:id="@+id/toggle"
+            android:layout_width="78dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="3sp"
+            android:textOff="No"
+            android:textOn="Yes" >
+        </ToggleButton>
+
+        <Button
+            android:id="@+id/send"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginLeft="50dip"
+            android:text="Send"
+            android:textColor="#000000" >
+        </Button>
+        
+    </LinearLayout>
+
+</ScrollView>

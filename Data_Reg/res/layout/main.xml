@@ -1,0 +1,223 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+        <!-- #FECA08 -->
+
+        <AbsoluteLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="321dp"
+            android:layout_height="79dp"
+            android:layout_gravity="center"
+            android:background="#FECA08" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="#006699" >
+            </TextView>
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="340dp"
+                android:layout_height="79dp"
+                android:layout_marginLeft="80dip"
+                android:layout_x="-69dp"
+                android:layout_y="4dp"
+                android:src="@drawable/titley" />
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="137dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="80dip"
+                android:layout_weight="0.15"
+                android:layout_x="211dp"
+                android:layout_y="18dp"
+                android:src="@drawable/mtnlogo" />
+        </AbsoluteLayout>
+
+        <!--
+              <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#006699" />
+        -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#FFFFFF" >
+        </TextView>
+
+        <Button
+            android:id="@+id/capture"
+            android:layout_width="202dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Take ID Picture"
+            android:textColor="#006699"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" First Name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#006699" />
+
+        <EditText
+            android:id="@+id/fname"
+            android:layout_width="230dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:background="#FECA08"
+            android:textColor="#ffffff" >
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Second Name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#006699" />
+
+        <EditText
+            android:id="@+id/sname"
+            android:layout_width="230dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:background="#FECA08"
+            android:textColor="#ffffff" >
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Third Name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#006699" />
+
+        <EditText
+            android:id="@+id/tname"
+            android:layout_width="230dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:background="#FECA08"
+            android:textColor="#ffffff" >
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Last Name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#006699" />
+
+        <EditText
+            android:id="@+id/lname"
+            android:layout_width="230dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:background="#FECA08"
+            android:textColor="#ffffff" >
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text=" MSISDN"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#006699" />
+
+        <EditText
+            android:id="@+id/msisdn"
+            android:layout_width="230dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:background="#FECA08"
+            android:inputType="number"
+            android:textColor="#ffffff" >
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" ID Type"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#006699" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#006699"
+            android:textSize="14dp" />
+
+        <ImageView
+            android:id="@+id/imgresult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+           <Button
+            android:id="@+id/q"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Query"
+            android:textColor="#006699"
+            android:textSize="18dp" />
+
+        <ImageView
+            android:id="@+id/idimage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4.24" />
+
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:textColor="#006699"
+            android:textSize="18dp" />
+
+             <Button
+            android:id="@+id/saveOffline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SaveOffline"
+            android:textColor="#006699"
+            android:textSize="18dp" />
+
+        <AbsoluteLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="321dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:background="#FECA08" >
+
+            <ImageView
+                android:id="@+id/footerimage"
+                android:layout_width="266dp"
+                android:layout_height="wrap_content"
+                android:layout_x="26dp"
+                android:layout_y="2dp"
+                android:src="@drawable/footerr" />
+        </AbsoluteLayout>
+        
+    </LinearLayout>
+    </ScrollView>
+    
