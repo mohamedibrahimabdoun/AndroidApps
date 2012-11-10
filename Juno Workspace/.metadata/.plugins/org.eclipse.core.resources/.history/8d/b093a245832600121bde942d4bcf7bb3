@@ -1,0 +1,46 @@
+package com.qrscanner.pkg;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class QRScannerMainActivity extends Activity {
+
+	Button capture_btn;
+	Button captureOneD_btn;
+	    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_qrscanner_main);
+        
+        
+        capture_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				// TODO Auto-generated method stub
+				View popUpView = getLayoutInflater().inflate(R.layout.popup,
+						null);
+				mpopup = new PopupWindow(popUpView, LayoutParams.FILL_PARENT,
+						LayoutParams.WRAP_CONTENT, true);
+				mpopup.setAnimationStyle(android.R.style.Animation_Toast);
+				mpopup.showAtLocation(popUpView, Gravity.CENTER, 0, 0); // Displaying
+				Button btnOk = (Button) popUpView.findViewById(R.id.btnOk);
+				btnOk.setOnClickListener(new OnClickListener() {
+
+					public void onClick(View arg0) {
+						// TODO Auto-generated method stub
+						mpopup.dismiss(); // dismissing the popup
+					}
+				});
+        
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_qrscanner_main, menu);
+        return true;
+    }
+}

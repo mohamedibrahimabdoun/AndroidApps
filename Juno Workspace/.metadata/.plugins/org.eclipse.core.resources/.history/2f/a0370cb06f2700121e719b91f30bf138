@@ -1,0 +1,329 @@
+<!--
+  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/hello_world"
+        tools:context=".DataRegApp_v2" />
+</RelativeLayout>
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+        <!-- #FECA08 -->
+
+        <AbsoluteLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="321dp"
+            android:layout_height="79dp"
+            android:layout_gravity="center"
+            android:background="#FECA08" >
+
+            <TextView
+                android:layout_width="395dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_x="-32dp"
+                android:background="#006699" >
+
+            </TextView>
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="340dp"
+                android:layout_height="79dp"
+                android:layout_marginLeft="80dip"
+                android:layout_x="-69dp"
+                android:layout_y="4dp"
+                android:src="@drawable/titley" />
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="80dip"
+                android:layout_weight="0.15"
+                android:layout_x="211dp"
+                android:layout_y="18dp"
+                android:src="@drawable/mtnlogo" />
+        </AbsoluteLayout>
+
+        <!--
+              <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#006699" />
+        -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#FFFFFF" >
+        </TextView>
+
+        <Button
+            android:id="@+id/capture"
+            android:layout_width="202dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Take ID Picture"
+            android:textColor="#006699"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Subiscriber No."
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#006699" />
+
+        <EditText
+            android:id="@+id/msisdn"
+            android:layout_width="230dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:background="#FECA08"
+            android:inputType="number"
+            android:textColor="#ffffff" >
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#006699" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="230dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:background="#FECA08"
+            android:textColor="#ffffff" >
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Address"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#006699" />
+
+        <EditText
+            android:id="@+id/address"
+            android:layout_width="230dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:background="#FECA08"
+            android:textColor="#ffffff" >
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Serail"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#006699" />
+
+        <EditText
+            android:id="@+id/serail"
+            android:layout_width="230dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:background="#FECA08"
+            android:textColor="#ffffff" >
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" ID Type"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#006699" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#006699"
+            android:textSize="14dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/imagefront"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4.24" />
+
+            <ImageView
+                android:id="@+id/imageback"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4.24" />
+        </LinearLayout>
+
+        <!--
+        <LinearLayout
+            android:id="@+id/LinearLayout2"
+            android:layout_width="391dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <LinearLayout
+                android:id="@+id/LLFront"
+                android:layout_width="142dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Front"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#006699" />
+
+               
+                     <Button
+                    android:id="@+id/frontbutton"
+                    android:layout_width="142dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Take ID Front Pic"
+                    android:textColor="#006699"
+                    android:textSize="15dp" />
+             
+
+                <ImageView
+                    android:id="@+id/imagefront"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LLback"
+                android:layout_width="165dp"
+                android:layout_height="162dp"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Front"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#006699" />
+
+                
+                    <Button
+                    android:id="@+id/backbutton"
+                    android:layout_width="142dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Take ID Back Pic"
+                    android:textColor="#006699"
+                    android:textSize="15dp" />
+              
+
+                <ImageView
+                    android:id="@+id/imageback"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+        -->
+
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <CheckBox
+                android:id="@+id/checkBox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I agree with all terms"
+                android:textColor="#006699" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Save Data"
+            android:textColor="#006699"
+            android:textSize="15dp" />
+        <!--
+              <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:text="Click here I agree to all terms"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#006699" />
+            
+             <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/line" />
+        -->
+
+        <TextView
+            android:layout_width="247dp"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <AbsoluteLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="366dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:background="#FECA08" >
+
+            <ImageView
+                android:id="@+id/footerimage"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_x="26dp"
+                android:layout_y="-6dp"
+                android:src="@drawable/footer" />
+        </AbsoluteLayout>
+    </LinearLayout>
+
+</ScrollView>

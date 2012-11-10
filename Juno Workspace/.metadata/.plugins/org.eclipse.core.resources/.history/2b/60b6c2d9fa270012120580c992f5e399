@@ -1,0 +1,232 @@
+ <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="719dp"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+       
+
+        <AbsoluteLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="321dp"
+            android:layout_height="79dp"
+            android:layout_gravity="center"
+            android:background="#FECA08" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="#006699" >
+       
+</AbsoluteLayout>
+              </LinearLayout>
+
+</ScrollView>
+          <!--   <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="340dp"
+                android:layout_height="79dp"
+                android:layout_marginLeft="80dip"
+                android:layout_x="-69dp"
+                android:layout_y="4dp"
+                android:src="@drawable/titley" />
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="137dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="80dip"
+                android:layout_weight="0.15"
+                android:layout_x="211dp"
+                android:layout_y="18dp"
+                android:src="@drawable/mtnlogo" /> 
+        </AbsoluteLayout>
+
+        
+              <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#006699" />
+        
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#FFFFFF" >
+        </TextView>
+
+        <Button
+            android:id="@+id/capture"
+            android:layout_width="202dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Take ID Picture"
+            android:textColor="#006699"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text=" Subiscriber No.:"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/msisdn"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:inputType="number" >
+        </EditText>
+
+        <AbsoluteLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_x="40dp"
+                android:layout_y="16dp"
+                android:textColor="#000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_x="0dp"
+                android:layout_y="15dp"
+                android:text=" Serail No."
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/scan"
+                android:layout_width="158dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.09"
+                android:layout_x="84dp"
+                android:layout_y="5dp"
+                android:text="Scan the BarCode"
+                android:textSize="15dp" />
+
+        </AbsoluteLayout>
+
+        <EditText
+            android:id="@+id/serail"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:enabled="true" >
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" >
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Address"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/address"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" >
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" ID Type"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="14dp" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Front"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000" />
+
+            <ImageView
+                android:id="@+id/imagefront"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="8.0" />
+
+            <TextView
+                android:layout_width="127dp"
+                android:layout_height="114dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Back"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000" />
+
+            <ImageView
+                android:id="@+id/imageback"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="8.0" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Save Data"
+            android:textSize="15dp" />
+
+        <RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView> -->

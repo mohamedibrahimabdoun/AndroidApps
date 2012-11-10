@@ -1,0 +1,20 @@
+package com.salescare.pkg;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+
+public class Sales_CareActivity extends Activity {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.mainactivity_mtnsalescare);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mainactivity_mtnsalescare, menu);
+        return true;
+    }
+}

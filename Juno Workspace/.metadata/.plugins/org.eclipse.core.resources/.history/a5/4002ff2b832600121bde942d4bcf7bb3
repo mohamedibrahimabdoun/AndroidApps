@@ -1,0 +1,28 @@
+package com.qrscanner.pkg;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class QRScannerMainActivity extends Activity {
+
+	Button capture_btn;
+	Button capture_btn1;
+	    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_qrscanner_main);
+        
+        
+        
+        
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_qrscanner_main, menu);
+        return true;
+    }
+}
