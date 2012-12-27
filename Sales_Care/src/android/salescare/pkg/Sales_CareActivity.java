@@ -1,0 +1,105 @@
+package android.salescare.pkg;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Bundle;
+import android.provider.Settings;
+import android.view.Menu;
+import android.view.View;
+import android.widget.ImageView;
+
+public class Sales_CareActivity extends Activity {
+    /** Called when the activity is first created. */
+	ImageView press_img;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.login_layout);
+    	press_img=(ImageView) findViewById(R.id.pressimgview);
+    	
+    	//startService(new Intent(Sales_SelfCareActivity.this, CheckingConnService.class)); 		
+		ConnectivityManager con_mgr = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+		NetworkInfo myInfo = con_mgr
+				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		if (con_mgr.getNetworkInfo(0).getState() == NetworkInfo.State.DISCONNECTED) 
+		{	
+			NoInternetAlertMsg();
+		}
+		
+    	press_img.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+				Intent mainmenu = new Intent(getBaseContext(),
+						MainPageActivity.class);
+				startActivity(mainmenu);
+			}
+		});
+
+    }
+    
+    public static void setAutoOrientaionEnable(ContentResolver resolver,
+			Boolean enabled) 
+	{
+		Settings.System.putInt(resolver,Settings.System.ACCELEROMETER_ROTATION, enabled ? 1 : 0);
+		// Settings.System.putInt(android.provider.Settings.System.putInt(getContentResover()
+		// , android.provider.Settings.System.USER_ROTATION, user_rotation));
+	}
+	/*@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.login_layout, menu);
+		return true;
+	}*/
+    private void ShowDailog(String msg, final Intent intent) {
+
+		final AlertDialog.Builder builder = new AlertDialog.Builder(
+				Sales_CareActivity.this);
+
+		builder.setMessage(msg)
+				.setCancelable(false)
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							public void onClick(final DialogInterface dialog,
+									final int id) {
+								if (intent != null)
+									startActivity(intent);
+
+							}
+						});
+
+		final AlertDialog alert = builder.create();
+		alert.show();
+	}
+    private void NoInternetAlertMsg() {
+
+		final AlertDialog.Builder builder = new AlertDialog.Builder(
+				Sales_CareActivity.this);
+
+		builder.setMessage(
+				"Internet seems to be disabled,do you want to enable it?")
+				.setCancelable(false)
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							public void onClick(final DialogInterface dialog,
+									final int id) {
+								Intent intt = new Intent(
+										Settings.ACTION_DATA_ROAMING_SETTINGS);
+
+								ComponentName cn = new ComponentName(
+										"com.android.phone",
+										"com.android.phone.Settings");
+								intt.setComponent(cn);
+								startActivity(intt);
+							}
+						});
+
+		final AlertDialog alert = builder.create();
+		alert.show();
+	}
+
+}
