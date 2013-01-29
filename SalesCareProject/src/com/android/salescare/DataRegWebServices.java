@@ -1,0 +1,195 @@
+package com.android.salescare;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.MarshalBase64;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
+import android.widget.Toast;
+
+public class DataRegWebServices {
+
+	// public Object result = null;
+	public Object result;
+	public String MSISDN;
+	public String NAME;
+	public String DATE;
+	public String ADDRESS;
+	public String SERAIL;
+	public String IMSI;
+	public String FrontImageName;
+	public String BackImageName;
+	public String idType;
+	public byte[] FrontImage;
+	public byte[] BackImage;
+	
+	public String getDATE() {
+		return DATE;
+	}
+
+	public void setDATE(String dATE) {
+		DATE = dATE;
+	}
+	
+	public String getMSISDN() {
+		return MSISDN;
+	}
+
+	public void setMSISDN(String mSISDN) {
+		MSISDN = mSISDN;
+	}
+
+	public String getNAME() {
+		return NAME;
+	}
+
+	public void setNAME(String nAME) {
+		NAME = nAME;
+	}
+
+	public String getADDRESS() {
+		return ADDRESS;
+	}
+
+	public void setADDRESS(String aDDRESS) {
+		ADDRESS = aDDRESS;
+	}
+
+	public String getSERAIL() {
+		return SERAIL;
+	}
+
+	public void setSERAIL(String sERAIL) {
+		SERAIL = sERAIL;
+	}
+
+	public String getIMSI() {
+		return IMSI;
+	}
+
+	public void setIMSI(String iMSI) {
+		IMSI = iMSI;
+	}
+
+	public String getFrontImageName() {
+		return FrontImageName;
+	}
+
+	public void setFrontImageName(String frontImageName) {
+		FrontImageName = frontImageName;
+	}
+
+	public String getBackImageName() {
+		return BackImageName;
+	}
+
+	public void setBackImageName(String backImageName) {
+		BackImageName = backImageName;
+	}
+
+	public String getIdType() {
+		return idType;
+	}
+
+	public void setIdType(String idType) {
+		this.idType = idType;
+	}
+
+	public byte[] getFrontImage() {
+		return FrontImage;
+	}
+
+	public void setFrontImage(byte[] frontImage) {
+		FrontImage = frontImage;
+	}
+
+	public byte[] getBackImage() {
+		return BackImage;
+	}
+
+	public void setBackImage(byte[] backImage) {
+		BackImage = backImage;
+	}
+
+	public SoapObject GetIDTypes(String URL, String NAMESPACE,
+			String METHOD_NAME, String SOAP_ACTION) {
+		SoapObject checkcount_soap = null;
+		try {
+			SoapObject request_type = new SoapObject(NAMESPACE, METHOD_NAME);
+			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+					SoapEnvelope.VER11);
+			envelope.setOutputSoapObject(request_type);
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+			androidHttpTransport.call(SOAP_ACTION, envelope);
+			checkcount_soap = (SoapObject) envelope.bodyIn;
+			
+			// checkcount_sp = (SoapObject) envelope.toString();
+		} catch (Exception E) {
+			E.getMessage();
+			Toast.makeText(null, "ERROR GetRec" + E.getClass().getName()
+					+ "exp GetRec" + E.getMessage(), Toast.LENGTH_LONG);
+		}
+		return checkcount_soap;
+	}
+	
+	public Object SaveData(String URL, String NAMESPACE, String METHOD_NAME,
+			String SOAP_ACTION) throws Exception {
+		try {
+			SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+					SoapEnvelope.VER11);
+			// Newly Added for Serialization new
+			new MarshalBase64().register(envelope);
+			envelope.encodingStyle = SoapEnvelope.ENC;
+
+			request.addProperty("MSISDN", MSISDN);
+			request.addProperty("NAME", NAME);
+			request.addProperty("ADDRESS", ADDRESS);
+			request.addProperty("SERAIL", SERAIL);
+			request.addProperty("FrontImageName", FrontImageName);
+			request.addProperty("BackImageName", BackImageName);
+			request.addProperty("idType", idType);
+			request.addProperty("IMSI", IMSI);
+			request.addProperty("FrontImage", FrontImage);
+			request.addProperty("BackImage", BackImage);
+
+			envelope.setOutputSoapObject(request);
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+			androidHttpTransport.call(SOAP_ACTION, envelope);
+			 result = envelope.getResponse();
+			
+			/*Toast.makeText(null, " " + result, Toast.LENGTH_LONG).show();*/
+		} catch (Exception E) {
+			E.printStackTrace();
+			Toast.makeText(
+					null,
+					"Saving Problem :Web Services ERROR" + E.getClass().getName() + ":"
+							+ E.getMessage(), Toast.LENGTH_LONG).show();
+
+		}
+		return result;
+	}
+
+	public String CreateTable(String Table_Name, HashMap hm) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("create table if not exists " + Table_Name + " (");
+		Set s = hm.entrySet();
+		Iterator it = s.iterator();
+		while (it.hasNext()) {
+			Map.Entry me = (Map.Entry) it.next();
+			sb.append(" " + me.getKey() + " " + me.getValue() + ",");
+		}
+		sb.append(")");
+		String SQL = sb.toString();
+		String R_SQL = SQL.replace(",)", ");");
+		return R_SQL;
+
+	}
+
+}

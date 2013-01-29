@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#006590"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="41dp"
+            android:gravity="left"
+            android:text=" "
+            android:textColor="#FECA08" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="192dp"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="323dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="left"
+                android:orientation="horizontal"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="  Name:"
+                    android:textColor="#FECA08" />
+
+                <TextView
+                    android:id="@+id/nametv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="323dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="left"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="  MSISDN:"
+                    android:textColor="#FECA08" />
+
+                <TextView
+                    android:id="@+id/msisdntv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="323dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="left"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="  Serail:"
+                    android:textColor="#FECA08" />
+
+                <TextView
+                    android:id="@+id/serailtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+  <LinearLayout
+                android:layout_width="323dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="left"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="  Address:"
+                    android:textColor="#FECA08" />
+
+                <TextView
+                    android:id="@+id/addresstv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="323dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="left"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="  IDType:"
+                    android:textColor="#FECA08" />
+
+                <TextView
+                    android:id="@+id/idtypestv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="323dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="left"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  Images:"
+                    android:textColor="#FECA08" />
+
+                <ImageView
+                    android:id="@+id/fimage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp" />
+
+                <ImageView
+                    android:id="@+id/bimage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:text="
+        أقر أنا المسئول المكلف عن نقطة البيع بأنه قد حضر امامي
+المذكور اعلاه، وفي حوزته جميع الأوراق الثبوتية المدونة
+وأقر بانني تأكدت من صحتها وعليه قمت بارسال البيانات
+وأتحمل المسئولية الكاملة في حال حدوث أي خطأ يتعلق
+بسلامة الإجراء.
+        "
+            android:textColor="#FECA08"
+            android:textStyle="bold" >
+
+        </TextView>
+
+        <LinearLayout
+            android:id="@+id/Lineayout1"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <Button
+                android:id="@+id/btnOk"
+                android:layout_width="129dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Agree"
+                android:textColor="#006699" >
+            </Button>
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="128dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Disagree"
+                android:textColor="#006699" >
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

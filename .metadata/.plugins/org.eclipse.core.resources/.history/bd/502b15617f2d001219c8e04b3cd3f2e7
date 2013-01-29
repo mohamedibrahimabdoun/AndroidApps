@@ -1,0 +1,61 @@
+package vtu.wsdroid.pkg;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import org.ksoap2.serialization.SoapObject;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class TransferActivity extends Activity {
+	private static final String METHOD_NAME = "transfer_vtu";
+
+	private static final String SOAP_ACTION = "transfer_vtu";
+
+	private static final String METHOD_NAME_get_rec = "Get_V_Rec";
+
+	private static final String SOAP_ACTION_get_rec = "Get_V_Rec";
+
+	private static final String NAMESPACE = "http://mypac/";
+
+	private static final String URL = "http://10.1.4.140:8080/SalesApp/saleswsService";
+	String IMSI;
+	String MSGSTR;
+	String sender_imsi;
+	int Counter;
+	EditText PIN, Receiver, Amount;
+	Button Transfer;
+	//Spinner s1;
+	static ArrayAdapter<String> adapter1;
+	String pin_str, amount_str, receiver_str,actv_receiver_str;
+	AutoCompleteTextView actv_Receiver;
+	DataSource ds;
+	TextView result_tv;
+	SoapObject so;
+	VTUWebService ws_obj;
+	String[] trader_str;
+	MyTraders[] mytrader;
+	String[] devplatforms = { "C", "C++", "Java", "C#.NET", "iPhone",
+			"Android", "ASP.NET", "PHP", "Python", };
+
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.transfer);
+
+	}
+	}

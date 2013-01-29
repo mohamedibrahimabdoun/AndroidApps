@@ -1,0 +1,31 @@
+package com.android.salescare;
+
+import org.ksoap2.serialization.SoapObject;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.ImageView;
+
+public class SalesCareProjectActivity extends Activity {
+    /** Called when the activity is first created. */
+	private static final String METHOD_NAME = "Get_MSISDN";
+
+	private static final String SOAP_ACTION = "Get_MSISDN";
+
+	private static final String NAMESPACE = "http://mypac/";
+    //private static final String URL="http://172.17.10.25:7001/SalesApp/saleswsService";
+
+    private static final String URL = "http://10.1.4.140:8080/SalesApp/saleswsService";
+	//private static final String URL = "http://172.26.1.61:7001/SalesApp/saleswsService";
+	//private static final String URL = "http://196.29.166.42:7001/SalesApp/saleswsService";
+	
+	//http://localhost:8080/SalesApp/saleswsService
+	ImageView press_img;
+	String IMSI;
+	SoapObject sp=null;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+    }
+}

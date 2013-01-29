@@ -1,0 +1,144 @@
+package android.salescare.pkg;
+
+import org.ksoap2.serialization.SoapObject;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Bundle;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
+import android.view.Menu;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+public class Sales_CareActivity extends Activity {
+    /** Called when the activity is first created. */
+	private static final String METHOD_NAME = "Get_MSISDN";
+
+	private static final String SOAP_ACTION = "Get_MSISDN";
+
+	private static final String NAMESPACE = "http://mypac/";
+    //private static final String URL="http://172.17.10.25:7001/SalesApp/saleswsService";
+
+    private static final String URL = "http://10.1.4.140:8080/SalesApp/saleswsService";
+	//private static final String URL = "http://172.26.1.61:7001/SalesApp/saleswsService";
+	//private static final String URL = "http://196.29.166.42:7001/SalesApp/saleswsService";
+	
+	//http://localhost:8080/SalesApp/saleswsService
+	ImageView press_img;
+	String IMSI;
+	SoapObject sp=null;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.login_layout);
+    	press_img=(ImageView) findViewById(R.id.pressimgview);
+    	// ======================= IMSI
+		TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+		IMSI = telephonyManager.getSubscriberId();
+
+    	//startService(new Intent(Sales_SelfCareActivity.this, CheckingConnService.class)); 		
+		ConnectivityManager con_mgr = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+		NetworkInfo myInfo = con_mgr
+				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		if (con_mgr.getNetworkInfo(0).getState() == NetworkInfo.State.DISCONNECTED) 
+		{	
+			NoInternetAlertMsg();
+		}
+		else {
+		
+		/*	SalesWebService ws=new SalesWebService();
+			 
+		
+			ws.setL_IMSI("927708440"); // I should set IMSI later
+			
+			sp = ws.GetMSISDN(URL, NAMESPACE, METHOD_NAME, SOAP_ACTION);
+			int counter_b = sp.getPropertyCount();
+			
+			for (int i = 0; i < counter_b; i++) {
+			SoapObject pii = (SoapObject) sp.getProperty(i);
+			String MSISDN = pii.getProperty(0).toString();
+			String PIN = pii.getProperty(1).toString();
+			String TID = pii.getProperty(2).toString();
+			String SEN = pii.getProperty(3).toString();
+		Toast.makeText(getBaseContext(), "MSISDN" + MSISDN+ "PIN"+PIN,Toast.LENGTH_SHORT).show();
+			}*/
+    	press_img.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+									
+				Intent mainmenu = new Intent(getBaseContext(),
+						MainPageActivity.class);
+				startActivity(mainmenu);
+			}
+		});
+		
+		}// End of if connection is connected 
+    }
+    
+    public static void setAutoOrientaionEnable(ContentResolver resolver,
+			Boolean enabled) 
+	{
+		Settings.System.putInt(resolver,Settings.System.ACCELEROMETER_ROTATION, enabled ? 1 : 0);
+		// Settings.System.putInt(android.provider.Settings.System.putInt(getContentResover()
+		// , android.provider.Settings.System.USER_ROTATION, user_rotation));
+	}
+	/*@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.login_layout, menu);
+		return true;
+	}*/
+    private void ShowDailog(String msg, final Intent intent) {
+
+		final AlertDialog.Builder builder = new AlertDialog.Builder(
+				Sales_CareActivity.this);
+
+		builder.setMessage(msg)
+				.setCancelable(false)
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							public void onClick(final DialogInterface dialog,
+									final int id) {
+								if (intent != null)
+									startActivity(intent);
+
+							}
+						});
+
+		final AlertDialog alert = builder.create();
+		alert.show();
+	}
+    private void NoInternetAlertMsg() {
+
+		final AlertDialog.Builder builder = new AlertDialog.Builder(
+				Sales_CareActivity.this);
+
+		builder.setMessage(
+				"Internet seems to be disabled,do you want to enable it?")
+				.setCancelable(false)
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							public void onClick(final DialogInterface dialog,
+									final int id) {
+								Intent intt = new Intent(
+										Settings.ACTION_DATA_ROAMING_SETTINGS);
+
+								ComponentName cn = new ComponentName(
+										"com.android.phone",
+										"com.android.phone.Settings");
+								intt.setComponent(cn);
+								startActivity(intt);
+							}
+						});
+
+		final AlertDialog alert = builder.create();
+		alert.show();
+	}
+
+}

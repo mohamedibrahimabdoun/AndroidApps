@@ -1,0 +1,272 @@
+package android.salescare.pkg;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.ksoap2.serialization.SoapObject;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SimpleAdapter;
+import android.widget.Toast;
+
+public class VTURepoActivity extends Activity {
+	/** Called when the activity is first created. */
+
+	Button Show, Clear;
+	private static final String METHOD_NAME = "Get_V_Rep";
+
+	private static final String SOAP_ACTION = "Get_V_Rep";
+
+	private static final String NAMESPACE = "http://mypac/";
+
+	// private static final String URL ="http://10.1.4.140:8080/SalesApp/saleswsService";
+	private static final String URL = "http://172.26.1.61:7001/SalesApp/saleswsService";
+	//private static final String URL = "http://196.29.166.42:7001/SalesApp/saleswsService";
+    //private static final String URL="http://172.17.10.25:7001/SalesApp/saleswsService";
+
+	VTUWebService vtu_wsr;
+	SoapObject sp = null;
+	GridView gridView;
+	String IMSI;
+	RadioButton daily, weekly, monthly;
+	RadioGroup rg;
+	String FROMDATE;
+	List<String> al = new ArrayList<String>();
+	ArrayAdapter<String> adapter;
+	String DAY = "SYSDATE-1";
+	String WEEK = "SYSDATE-7";
+	String MONTH = "SYSDATE-30";
+	String imsi = "634021428166261";  //634021428166261
+	ListView lv;
+	String[] from;
+	int[] to;
+	SimpleAdapter sim_adapter;
+	List<HashMap<String, String>> fillMaps;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.vtu_report_list);
+
+		vtu_wsr = new VTUWebService();
+
+		// ======================= IMSI
+		TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+		IMSI = telephonyManager.getSubscriberId();
+
+		rg = (RadioGroup) findViewById(R.id.radioGroup);
+		daily = (RadioButton) findViewById(R.id.daily);
+		weekly = (RadioButton) findViewById(R.id.weekly);
+		monthly = (RadioButton) findViewById(R.id.monthly);
+		Show = (Button) findViewById(R.id.show);
+		Clear = (Button) findViewById(R.id.clear);
+		lv = (ListView) findViewById(R.id.listview);
+		setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		Show.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				try {
+					if (!daily.isChecked() && !weekly.isChecked()
+							&& !monthly.isChecked()) {
+
+						Toast.makeText(getBaseContext(),
+								"Please select of them to show report",
+								Toast.LENGTH_LONG).show();
+
+					} else {
+						/*Toast.makeText(getBaseContext(),
+								"U have click the show", Toast.LENGTH_LONG)
+								.show();*/
+
+						if (daily.isChecked()) {
+							FROMDATE = DAY;
+						} else if (weekly.isChecked()) {
+							FROMDATE = WEEK;
+						} else if (monthly.isChecked()) {
+							FROMDATE = MONTH;
+						}
+
+						vtu_wsr = new VTUWebService();
+						String DESC = "DESC";
+						vtu_wsr.setTOP(DESC);
+						vtu_wsr.setIMSI("927708440");
+						vtu_wsr.setDATE(FROMDATE);
+
+						sp = vtu_wsr.GetRep(URL, NAMESPACE, METHOD_NAME,
+								SOAP_ACTION);
+						int counter_b = sp.getPropertyCount();
+						fillMaps = new ArrayList<HashMap<String, String>>();
+						for (int i = 0; i < counter_b; i++) {
+							lv.clearChoices();
+							SoapObject pii = (SoapObject) sp.getProperty(i);
+							String CREDIT = pii.getProperty(0).toString();
+							String MSISDN = pii.getProperty(1).toString();
+							String RECV = pii.getProperty(2).toString();
+							String SEN = pii.getProperty(3).toString();
+							HashMap<String, String> map = new HashMap<String, String>();
+
+							map.put("rowid", "" + i);
+							map.put("GSM", MSISDN);
+							map.put("Credit", CREDIT);
+							map.put("Received Amount", RECV);
+							map.put("Sent Amount", SEN);
+
+							fillMaps.add(map);
+						}
+						from = new String[] { "rowid", "GSM", "Credit",
+								"Received Amount", "Sent Amount" };
+						to = new int[] { R.id.item1, R.id.item2, R.id.item3,
+								R.id.item4, R.id.item5 };
+						// fill in the grid_item layout
+						sim_adapter = new SimpleAdapter(getBaseContext(),
+								fillMaps, R.layout.vtu_grid_item, from, to);
+						lv.setAdapter(sim_adapter);
+						// prepare the list of all records
+					}
+				} catch (Exception e) {
+					ShowDailog("Internet Connection interrupted: "
+							+ e.getMessage() + e.getClass().getName());
+				}// try catch Block
+
+			}// -- End of onClick
+		}); // End on Clcik
+
+		/*Clear.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				rg.clearCheck();
+
+			}
+		});*/
+
+	}// End of On create
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		finish();
+		//ds.close();
+		// ds.close();
+		//finish();
+	}
+
+	public void ShowDailog(Object result) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("" + result).setPositiveButton("OK ",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						System.out.println("OK CLICKED");
+						dialog.dismiss();
+						Intent launch = new Intent(getBaseContext(),
+								VTUActivity.class);
+						launch.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(launch);
+					}
+				});
+		builder.setNegativeButton("Edit",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+
+					}
+				});
+		AlertDialog alert = builder.create();
+		alert.setTitle("Service Reply ");
+		alert.setIcon(R.drawable.ic);
+		alert.show();
+	}
+
+	private void CreateMenu(Menu menu) {
+		menu.setQwertyMode(true);
+		MenuItem mnu1 = menu.add(0, 0, 0, "Main Menu");
+		{
+			mnu1.setAlphabeticShortcut('a');
+			mnu1.setIcon(R.drawable.icon);
+		}
+		MenuItem mnu2 = menu.add(0, 1, 1, "Exit");
+		{
+			mnu2.setAlphabeticShortcut('b');
+			// mnu2.setIcon(R.drawable.ic_launcher);
+		}
+
+	}
+
+	private boolean MenuChoice(MenuItem item) {
+		switch (item.getItemId()) {
+		case 0:
+			/*Toast.makeText(this, "You clicked on Item 1", Toast.LENGTH_LONG)
+					.show();*/
+			Intent mainmenu = new Intent(this, MainPageActivity.class);
+			startActivity(mainmenu);
+
+			return true;
+		case 1:
+			/*Toast.makeText(this, "You clicked on Item 2", Toast.LENGTH_LONG)
+					.show();*/
+			Intent exit = new Intent(this, Sales_CareActivity.class);
+			startActivity(exit);
+
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// getMenuInflater().inflate(R.menu.data_registration_layout, menu);
+		super.onCreateOptionsMenu(menu);
+		CreateMenu(menu);
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return MenuChoice(item);
+	}
+}
+// http://www.coderzheaven.com/2011/08/20/how-to-use-radiobuttongroup-in-android/
+// http://www.coderzheaven.com/
+// http://www.coderzheaven.com/2012/10/20/actionbar-search-option-options-android/
+//
+// http://www.coderzheaven.com/2012/10/28/pass-arraylist-activity-android/
+// http://www.vogella.com/articles/Android/article.html#fragments
+// http://www.linuxforu.com/2011/05/android-fragments-api/
+// http://www.androidhive.info/2012/05/android-rss-reader-application-using-sqlite-part-2/
+// http://www.androidhive.info/2012/05/android-rss-reader-application-using-sqlite-part-2/
+// http://lovingandroid.blogspot.com/2012/02/fragments.html
+// http://developer.android.com/guide/components/fragments.html
+// http://wptrafficanalyzer.in/blog/itemclick-handler-for-listfragment-in-android/
+// http://www.heikkitoivonen.net/blog/2009/02/15/multicolumn-listview-in-android/
+// http://congeritc.blogspot.com/2012/04/android-passing-values-between-views.html
+// http://wptrafficanalyzer.in/blog/dynamically-add-items-to-listview-in-android/
+// http://wptrafficanalyzer.in/blog/filterable-listview-in-android/
+// http://stackoverflow.com/questions/12872636/different-layouts-for-each-list-item-in-android-fragments
+//
+
+// http://www.codeproject.com/Articles/439852/Android-with-SQLite-Database-Handling-in-MonoDevel
+// http://android-codes-examples.blogspot.com/2011/04/google-map-example-in-android-with-info.html
+// http://android-codes-examples.blogspot.com/2011/11/running-service-in-background-on.html
+// http://android-codes-examples.blogspot.com/2011/04/animated-customized-popup-transparent.html
+// http://android-codes-examples.blogspot.com/2011/03/multiple-listview-and-custom-listview.html
+// http://android-codes-examples.blogspot.com/2011/09/image-and-content-is-populated-from.html
+// http://androidhub.wordpress.com/2011/08/03/android-intents-for-passing-data-between-activities-part-2/
+// http://xjaphx.wordpress.com/2011/07/13/detect-layout-type-landscapeportrait/
+// http://www.androidhive.info/2012/05/android-rss-reader-application-using-sqlite-part-2/
+// http://neilgoodman.net/2012/03/12/working-with-fragments-on-android-part-2/
+// http://neilgoodman.net/2012/03/12/working-with-fragments-on-android-part-2/
+// http://lovingandroid.blogspot.com/2012/02/fragments.html
+//

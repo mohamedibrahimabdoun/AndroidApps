@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="529dp"
+        android:background="#FECA00"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/sumreptv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Summery Report"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/daily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Daily" />
+
+            <RadioButton
+                android:id="@+id/weekly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Weekly" />
+
+            <RadioButton
+                android:id="@+id/monthly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monthly" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/linearGrid"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="clip_vertical"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <Button
+                android:id="@+id/show"
+                android:layout_width="154dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Show Report"
+                android:textColor="#006699" />
+
+            <Button
+                android:id="@+id/clear"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Clear Radio"
+                android:textColor="#006699" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#FECA00" >
+
+            <TextView
+                android:id="@+id/item1"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.10"
+                android:height="30dip"
+                android:width="20dip" />
+
+            <TextView
+                android:id="@+id/item2"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.07"
+                android:height="30dip"
+                android:textColor="#000000"
+                 android:text="GSM"
+                android:width="100dip" />
+            <!-- android:text="GSM" -->
+
+            <TextView
+                android:id="@+id/item3"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.07"
+                android:height="30dip"
+                android:text="Credit"
+                android:textColor="#000000"
+                android:width="100dip" />
+            <!-- android:text="Credit" -->
+
+            <TextView
+                android:id="@+id/item4"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.10"
+                android:height="30dip"
+                android:text="Sent Amount" 
+                android:textColor="#000000"
+                android:width="100dip" />
+            <!-- android:text="Sent Amount" -->
+
+            <TextView
+                android:id="@+id/item5"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.16"
+                android:height="30dip"
+                android:text="Received Amount"
+                android:textColor="#000000"
+                android:width="100dip" />
+            <!-- android:text="Received Amount" -->
+        </LinearLayout>
+
+        <!-- List Divider -->
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="?android:attr/listDivider" />
+
+        <!-- ListView (grid_items) -->
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" >
+
+            <ListView
+                android:id="@+id/listview"
+                android:layout_width="fill_parent"
+                android:layout_height="522dp" >
+            </ListView>
+        </LinearLayout>
+
+        <!--
+ <LinearLayout
+     android:id="@+id/linearGrid"
+     android:layout_width="fill_parent"
+     android:layout_height="60dp"
+     android:layout_gravity="clip_vertical"
+     android:gravity="center"
+     android:orientation="horizontal"
+     android:weightSum="1" >
+
+
+      <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text=" MSISDN"
+         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text=" CREDIT"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text=" SENDAMNT"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text=" RECEAMNT"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</LinearLayout>
+        -->
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;android.salescare.pkg&apos; to &apos;android.care&apos;&#x0D;&#x0A;- Original project: &apos;Sales Care&apos;&#x0D;&#x0A;- Original element: &apos;Sales Care/src/android.salescare.pkg&apos;&#x0D;&#x0A;- Renamed element: &apos;Sales Care/src/android.care&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;android.salescare.pkg&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;android.salescare.pkg" name="android.care" qualified="false" references="true" stamp="1356971294471" textual="false" version="1.0"/>
+</session>

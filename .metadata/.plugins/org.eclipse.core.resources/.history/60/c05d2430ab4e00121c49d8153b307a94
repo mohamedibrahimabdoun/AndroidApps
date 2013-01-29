@@ -1,0 +1,333 @@
+package android.salescare.pkg;
+
+import org.ksoap2.serialization.SoapObject;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.IBinder;
+import android.util.Log;
+import android.widget.ProgressBar;
+import android.widget.RemoteViews;
+import android.widget.Toast;
+
+public class CheckingConnService extends Service {
+	BroadcastReceiver broadcastReceiver;
+	private NotificationManager NM;
+	private int NOTIFICATION = 1;
+	// ImageDbAdapter ds;
+	ProgressBar progressBar;
+	private int progress = 0;
+	Notification notification;
+	Thread download;
+	int c_count;
+	int total_del_number = 0;
+	private static final String SOAP_ACTION = "SaveData";
+	private static final String METHOD_NAME = "SaveData";
+	private static final String NAMESPACE = "http://tempuri.org/";
+
+	// private static final String
+	// URL="http://172.17.10.25:7001/Data_Registration-Data_Reg-context-root/DataRegistrationWebService";
+	private static final String URL = "http://172.26.1.61:7001/SalesCare-Sales_CareProject-context-root/DataRegistrationService";
+	// private static final String URL =
+	// "http://196.29.166.42:7001/SalesCare-Sales_CareProject-context-root/DataRegistrationService";
+
+	public String _id, DATE, NAME, MSISDN, IMSI, ADDRESS, SERAIL, IDTYPES,
+			FrontImgName, BackImgName;
+	public byte[] FrontImageByte;
+	public byte[] BackImageByte;
+	ImageDbAdapter imgAdapter;
+
+	@Override
+	public IBinder onBind(Intent intent) {
+		return null;
+	}
+
+	@Override
+	public void onCreate() {
+		super.onCreate();
+
+		broadcastReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+
+				try {
+					// ConnectivityManager con_mgr = (ConnectivityManager)
+					// getSystemService(CONNECTIVITY_SERVICE);
+					// NetworkInfo myInfo
+					// =con_mgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+					ConnectivityManager con_mgr = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+					NetworkInfo myInfo = con_mgr
+							.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+					if (con_mgr.getNetworkInfo(0).getState() == NetworkInfo.State.CONNECTED) {
+						Toast.makeText(context, "Connection go Up",
+								Toast.LENGTH_SHORT).show();
+
+						/*
+						 * imgAdapter = new ImageDbAdapter(context);
+						 * imgAdapter.open();
+						 */
+
+						String[] arrstr = new String[1];
+						arrstr[0] = "SELECT * FROM REGISTRATION";
+						imgAdapter = new ImageDbAdapter(context, arrstr);
+						int cnt = 0;
+						cnt = imgAdapter.getCountRow("REGISTRATION");
+						Cursor c = imgAdapter.getAllData("REGISTRATION");
+						c_count = cnt;
+						if (cnt > 0) {
+							Toast.makeText(context,
+									" Start syncing(" + cnt + ")rows",
+									Toast.LENGTH_SHORT).show();
+
+							
+							Intent in = new Intent(getApplicationContext(),
+									CheckingConnService.class);
+							PendingIntent pendingIntent = PendingIntent
+									.getActivity(getApplicationContext(), 0,
+											in, 0);
+							notification = new Notification(
+									R.drawable.logonotify,
+									"Sending Pending Data",
+									System.currentTimeMillis());
+							notification.flags = notification.flags
+									| Notification.FLAG_AUTO_CANCEL;
+							notification.contentView = new RemoteViews(
+									getApplicationContext().getPackageName(),
+									R.layout.download_progress);
+							notification.contentIntent = pendingIntent;
+							notification.contentView.setImageViewResource(
+									R.id.status_icon, R.drawable.ic_menu_save);
+							notification.contentView.setTextViewText(
+									R.id.status_text, "Sending in progress");
+							// /////////////////////////////////////////////////////////
+
+							int i = 0;
+							DataRegWebServices mclass = new DataRegWebServices();
+							Object o;
+							c.moveToFirst();
+							do {
+								// Toast.makeText(context,
+								// "With in Cursor " + c.getCount(),
+								// Toast.LENGTH_SHORT).show();
+ 
+								/*_id = c.getString(c.getColumnIndex("COL_ID"));
+								NAME = c.getString(c.getColumnIndex("COL_NAME"));
+								MSISDN = c
+										.getString(c.getColumnIndex("COL_MSISDN"));
+								SERAIL = c
+										.getString(c.getColumnIndex("COL_SERAIL"));
+								IMSI = c.getString(c.getColumnIndex("COL_IMSI"));
+								ADDRESS = c.getString(c
+										.getColumnIndex("COL_ADDRESS"));
+								IDTYPE = c.getString(c
+										.getColumnIndex("COL_IDTYPES"));
+								DATE = c.getString(c.getColumnIndex("COL_DATE"));
+								FrontImgName = c.getString(c
+										.getColumnIndex("COL_FRONTIMGNAME"));
+								BackImgName = c.getString(c
+										.getColumnIndex("COL_BACKIMGNAME")); 
+								FrontImageByte = c.getBlob(c
+										.getColumnIndex("COL_FRONTIMAGE"));
+								BackImageByte = c.getBlob(c
+										.getColumnIndex("COL_BACKIMAGE"));*/
+								
+								// =================
+							
+						        _id = c.getString(c.getColumnIndex("_id"));
+								NAME = c.getString(c.getColumnIndex("NAME"));
+								MSISDN = c
+										.getString(c.getColumnIndex("MSISDN"));
+								SERAIL = c
+										.getString(c.getColumnIndex("SERAIL"));
+								IMSI = c.getString(c.getColumnIndex("IMSI"));
+								ADDRESS = c.getString(c
+										.getColumnIndex("ADDRESS"));
+								IDTYPES = c.getString(c
+										.getColumnIndex("IDTYPES"));
+								DATE = c.getString(c.getColumnIndex("DATE"));
+								FrontImgName = c.getString(c
+										.getColumnIndex("FRONTIMAGE_NAME"));
+								BackImgName = c.getString(c
+										.getColumnIndex("BACKIMAGE_NAME")); // FRONTIMAGE_NAME
+								FrontImageByte = c.getBlob(c
+										.getColumnIndex("FRONT_IMAGE"));
+								BackImageByte = c.getBlob(c
+										.getColumnIndex("BACK_IMAGE"));
+								 
+								 
+								// =================
+								DataRegWebServices reg = new DataRegWebServices();
+								reg.setDATE(DATE);
+								reg.setNAME(NAME);
+								reg.setMSISDN(MSISDN);
+								reg.setADDRESS(ADDRESS);
+								reg.setSERAIL(SERAIL);
+								reg.setIMSI(IMSI);
+								reg.setIdType(IDTYPES);
+								reg.setFrontImageName(FrontImgName);
+								reg.setBackImageName(BackImgName);
+								reg.setFrontImage(FrontImageByte);
+								reg.setBackImage(BackImageByte);
+								// =================
+								Log.d("MyCursor ID: ", _id);
+								Log.d("MyCursor NAME: ", NAME);
+								Log.d("MyCursor MSISDN: ", MSISDN);
+								Log.d("MyCursor IDTYPE: ", IDTYPES);	
+								Log.d("MyCursor FrontImgName: ", FrontImgName);
+								Log.d("MyCursor ADDRESS: ", ADDRESS);
+								Log.d("MyCursor SERAIL: ", SERAIL);
+								Log.d("MyCursor FrontImageByte: ",
+										FrontImageByte.toString());
+								Log.d("MyCursor BackImageByte: ",
+										BackImageByte.toString());
+								Toast.makeText(
+										context,
+										"Data in Pending" + FrontImageByte
+												+ BackImageByte,
+										Toast.LENGTH_SHORT).show();
+
+								// DataRegWebServices obj = new
+								// DataRegWebServices();
+								/*
+								 * obj.setPOSNAME(POSNAME);
+								 * obj.setPOSTYPE(POSTYPE); obj.setOWNER(OWNER);
+								 * obj.setADDRESS(ADDRESS);
+								 * obj.setMOBILE(MOBILE); obj.setBRAND(BRAND);
+								 * obj.setSTOCK(STOCK); obj.setDATE(DATE);
+								 * obj.setIMEI(IMEI);
+								 * obj.setLAT(Double.parseDouble(LAT));
+								 * obj.setLNG(Double.parseDouble(LNG));
+								 */
+
+								Object Send_result = reg.SaveData(URL,
+										NAMESPACE, METHOD_NAME, SOAP_ACTION);
+								Log.d("Send_result before if  ",
+										Send_result.toString());
+								String s = "Data Saved";
+
+								if (Send_result.toString().equals(s.toString())) {
+
+									Log.d("Equal Send_result: ",
+											Send_result.toString());
+
+									// =============== Delete all Rows if the
+									// data sync to web services
+									int id_number = imgAdapter.DeleteRow(
+											"REGISTRATION", "ID",
+											Integer.parseInt(_id));
+									Log.d("id_number",
+											Integer.toString(id_number));
+									total_del_number = total_del_number
+											+ id_number;
+
+								} else {
+									Log.d("Not Equal Send_result: ",
+											Send_result.toString());
+								}
+
+								reg = null;
+								i = i++;
+								progress++;
+
+								download = new Thread() {
+									@Override
+									public void run() {
+										for (int i = 1; i < c_count; i++) {
+											notification.contentView
+													.setProgressBar(
+															R.id.status_progress,
+															c_count, progress,
+															false);
+											NM.notify(42, notification);
+											try {
+												Thread.sleep(150);
+											} catch (InterruptedException e) {
+												e.printStackTrace();
+											}
+										}
+										NM.cancel(42);
+									}
+								};
+
+								download.run();
+								NM.notify(42, notification);
+
+							} while (c.moveToNext());
+
+							Toast.makeText(context,
+									" (" + total_del_number + ") Record Sent",
+									Toast.LENGTH_SHORT).show();
+
+							c.close();
+							notification.contentView.setProgressBar(
+									R.id.status_progress, c_count, progress,
+									false);
+							// inform the progress bar of updates in progress
+							NM.notify(42, notification);
+							showNotification();
+						}
+
+					} else {
+						Toast.makeText(context, "Connection go Down",
+								Toast.LENGTH_SHORT).show();
+
+					}
+				} catch (Exception e) {
+					// Toast.makeText(context, e.getStackTrace()+"Here",
+					// Toast.LENGTH_SHORT).show();
+					Log.d("Error", e.getMessage() + "Get Class" + e.getClass());
+				}
+
+			}
+
+		};
+
+		registerReceiver(broadcastReceiver, new IntentFilter(
+				ConnectivityManager.CONNECTIVITY_ACTION));
+
+		Toast.makeText(this, "Service SlaesApp Staring", Toast.LENGTH_SHORT)
+				.show();
+
+		NM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+		NM.cancel(42);
+
+	}
+
+	private void showNotification() {
+
+		download.run();
+		NM.notify(42, notification);
+	}
+
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		Log.i("LocalService", "Received start id " + startId + ": " + intent);
+
+		return START_STICKY;
+	}
+
+	@Override
+	public void onDestroy() {
+		// Cancel the persistent notification.
+		NM.cancel(NOTIFICATION);
+
+		unregisterReceiver(broadcastReceiver);
+		imgAdapter = null;
+		// imgAdapter.close();
+		// Tell the user we stopped.
+		Toast.makeText(
+				this,
+				"You are interrupting important service,Please Contact System Devlopment..",
+				Toast.LENGTH_SHORT).show();
+	}
+}

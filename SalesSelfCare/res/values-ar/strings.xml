@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, SalesSelfCareActivity!</string>
+    <string name="app_name">SalesSelfCare</string>
+    <string name="subnos">رقم المشترك </string>
+    <string name="puks">الرقم المتسلسل </string>
+    <string name="activates"> تفعيل </string>
+    <!--
+رقم  المشترك 
+الرقم المتسلسل
+    -->
+
+</resources>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#006590"
+    android:orientation="vertical" >
+
+   <!--   <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="202dp"
+        android:gravity="center"
+        android:text="
+         أقر أنا المسئول المكلف عن نقطة البيع بأنه قد حضر امامي المذكور اعلاه
+         وفي حوزته جميع الأوراق الثبوتية المدونة
+         وأقر بانني تأكدت من صحتها
+         وعليه قمت بأرسال البيانات
+        وأتحمل المسئولية الكاملة في حال حدوث أي خطأ يتعلق بسلامة الإجراء "
+        android:textColor="#FECA08"
+        android:textStyle="bold" >
+    </TextView>-->
+
+ <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="202dp"
+        android:gravity="center"
+        android:text="
+        أقر أنا المسئول المكلف عن نقطة البيع بأنه قد حضر امامي
+المذكور اعلاه، وفي حوزته جميع الأوراق الثبوتية المدونة
+وأقر بانني تأكدت من صحتها وعليه قمت بارسال البيانات
+وأتحمل المسئولية الكاملة في حال حدوث أي خطأ يتعلق
+بسلامة الإجراء.
+        "
+        android:textColor="#FECA08"
+        android:textStyle="bold" >
+    </TextView>
+    
+أقر أنا المسئول المكلف عن نقطة البيع بأنه قد حضر امامي
+المذكور اعلاه، وفي حوزته جميع الأوراق الثبوتية المدونة
+وأقر بانني تأكدت من صحتها وعليه قمت بارسال البيانات
+وأتحمل المسئولية الكاملة في حال حدوث أي خطأ يتعلق
+بسلامة الإجراء.
+
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1" >
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="129dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:text="Agree"
+            android:textColor="#006699" >
+        </Button>
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Disagree"
+            android:textColor="#006699" >
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>

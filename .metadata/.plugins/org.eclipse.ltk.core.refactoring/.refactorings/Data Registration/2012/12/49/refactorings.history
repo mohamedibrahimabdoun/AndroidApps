@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 2 elements to &apos;DataRegistration/src/com.ws.dataregistration&apos;&#x0D;&#x0A;- Original project: &apos;Data Registration&apos;&#x0D;&#x0A;- Destination element: &apos;DataRegistration/src/com.ws.dataregistration&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     app.selfcare.pkg.ImageDbHelper.java&#x0D;&#x0A;     app.selfcare.pkg.ImageDbAdapter.java" description="Copy compilation units" destination="=DataRegistration/src&lt;com.ws.dataregistration" element1="/src&lt;app.selfcare.pkg{ImageDbHelper.java" element2="/src&lt;app.selfcare.pkg{ImageDbAdapter.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1354615175471" units="2" version="1.0"/>
+</session>

@@ -1,0 +1,350 @@
+package android.salescare.pkg;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import org.ksoap2.serialization.SoapObject;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class TransferActivity extends Activity {
+	private static final String METHOD_NAME = "transfer_vtu";
+
+	private static final String SOAP_ACTION = "transfer_vtu";
+
+	private static final String METHOD_NAME_get_rec = "Get_V_Rec";
+
+	private static final String SOAP_ACTION_get_rec = "Get_V_Rec";
+
+	private static final String NAMESPACE = "http://mypac/";
+    //private static final String URL="http://172.17.10.25:7001/SalesApp/saleswsService";
+
+	//private static final String URL = "http://10.1.4.140:8080/SalesApp/saleswsService";
+	private static final String URL = "http://172.26.1.61:7001/SalesApp/saleswsService";
+	//private static final String URL = "http://196.29.166.42:7001/SalesApp/saleswsService";
+	
+	String IMSI;
+	String MSGSTR;
+	String sender_imsi;
+	int Counter;
+	EditText PIN, Receiver, Amount;
+	Button Transfer;
+	static ArrayAdapter<String> adapter1;
+	String pin_str, amount_str, receiver_str, actv_receiver_str;
+	AutoCompleteTextView actv_Receiver;
+	DataSources ds;
+	TextView result_tv;
+	SoapObject so;
+	VTUWebService ws_obj;
+	String[] trader_str;
+	MyTraders[] mytrader;
+	AutoCompleteTextView actvDev;
+
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.vtu_transfer);
+
+		ws_obj = new VTUWebService();
+		result_tv = (TextView) findViewById(R.id.result);
+		actv_Receiver = (AutoCompleteTextView) findViewById(R.id.actvmsisdn);
+
+		// ======================= IMEI
+		TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+		IMSI = telephonyManager.getSubscriberId();
+
+		// ================= Create Traders Table in SQLite ================
+
+		HashMap Structure_Traders = new HashMap();
+		HashMap Data_Traders = new HashMap();
+		Structure_Traders.put("_id", "integer primary key AUTOINCREMENT");
+		Structure_Traders.put("MSISDN", "varchar2");
+		String SQl_cstmt = CreateTable("TRADERS", Structure_Traders);
+		try {
+			String[] Commands = new String[1];
+			Commands[0] = SQl_cstmt;
+			ds = new DataSources(this, Commands);
+			ds.open();
+
+		} catch (Exception e) {
+			Toast.makeText(
+					getBaseContext(),
+					e.getMessage() + "Error, Creating Offline DataBase"
+							+ e.getClass().getName(), Toast.LENGTH_LONG).show();
+		}
+		// ================= End Of Creating Tables
+
+		// #################################### call Web service To Populate
+
+		// String sender_imsi2 = "998316000";
+		// Cursor curall =null;
+		Cursor curall = ds.getAllRec("TRADERS");
+		if (curall.getCount() > 0) {
+
+			startManagingCursor(curall);
+			String[] curall_col = new String[] { "MSISDN" };
+			int[] curall_to = new int[] { android.R.id.text1 };
+
+			// SimpleCursorAdapter sca_traders = new SimpleCursorAdapter(this,
+			// android.R.layout.simple_spinner_item, curall, curall_col,
+			// curall_to);
+			// ========= Spinner
+			// sca_traders.setDropDownViewResource(android.R.layout.simple_spinner_item);
+			// s1 = (Spinner) this.findViewById(R.id.spinner);
+			// s1.setTextFilterEnabled(true);
+			SimpleCursorAdapter sca = new SimpleCursorAdapter(this,
+					android.R.layout.simple_spinner_item, curall, curall_col,
+					curall_to);
+
+			// sca.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line,devplatforms);
+			// /ArrayAdapter<String> adapter =
+			// new
+			// ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,devplatforms);
+			// s1.setAdapter(sca_traders);
+			// sca.getFilter();
+
+			sca.setCursorToStringConverter(new SimpleCursorAdapter.CursorToStringConverter() {
+				@Override
+				public CharSequence convertToString(Cursor cursor) {
+					final int colIndex = cursor.getColumnIndexOrThrow("MSISDN");
+					return cursor.getString(colIndex);
+				}
+			});
+
+			sca.getItem(1);
+	        actvDev = (AutoCompleteTextView) findViewById(R.id.actvmsisdn);
+			// actvDev.getText();
+			actvDev.setThreshold(3);
+			actvDev.setAdapter(sca);
+
+		} else {
+			try {
+				// ===================== call Web service To Populate
+				// ===Call GetRec Web Services "634021423765711";
+				// 634021450155813
+
+				String imsi = "927708440"; // 927708440
+				// so=new SoapObject("sender",imsi);
+				VTUWebService obj;
+				obj = new VTUWebService();
+				obj.setIMSI(imsi);
+				so = obj.CallGetRec(URL, NAMESPACE, METHOD_NAME_get_rec,
+						SOAP_ACTION_get_rec);
+				Toast.makeText(getBaseContext(),"Result"+ so,
+						+Toast.LENGTH_LONG).show();
+				Counter = so.getPropertyCount();
+				trader_str = new String[Counter];
+				mytrader = new MyTraders[Counter];
+				Cursor cur_traders = ds.getAllRec("TRADERS");
+
+				Toast.makeText(getBaseContext(),
+						"SQLite DataBase" + cur_traders.getCount(),
+						+Toast.LENGTH_LONG).show();
+
+				// ===================== call Web service To Populate TRADERS
+
+				for (int i = 0; i < mytrader.length; i++) {
+					int j = 0;
+					SoapObject soap = (SoapObject) so.getProperty(i);
+					MyTraders t = new MyTraders();
+					// t.id = j;
+					t.msisdn = soap.getProperty(0).toString();
+					mytrader[i] = t;
+					trader_str[i] = t.msisdn;
+					 Toast.makeText(getBaseContext(),
+				      "Inserting Numbers of Sales Rep ..." + trader_str[i], +Toast.LENGTH_LONG)
+					 .show();
+					// =========== Create The Off line table of SQLite
+			
+					Data_Traders.put("MSISDN", t.msisdn);
+					String msg = ds.InsertRow("TRADERS", Data_Traders);
+					j++;
+				}
+
+				startManagingCursor(cur_traders);
+				String[] cur_col = new String[] { "MSISDN" };
+				int[] cur_to = new int[] { android.R.id.text1 };
+
+				SimpleCursorAdapter sca_offline = new SimpleCursorAdapter(this,
+						android.R.layout.simple_spinner_item, cur_traders,
+						cur_col, cur_to);
+				sca_offline
+						.setDropDownViewResource(android.R.layout.simple_spinner_item);	
+		    // actvDev
+				/*
+				 * actvDev.setThreshold(3); actvDev.setAdapter(sca_offline);
+				 */
+			} catch (Exception e) {
+				//result_tv.setText(e.getMessage() + "Error in OnCreate"
+						//+ e.getClass().getName());
+				 Toast.makeText(getBaseContext(),
+				 e.getMessage()+"Error"+
+				 e.getClass().getName(),Toast.LENGTH_LONG).show();
+			}
+			// ======End=========
+		}
+
+		Transfer = (Button) findViewById(R.id.transfer);
+		PIN = (EditText) findViewById(R.id.pin);
+		Amount = (EditText) findViewById(R.id.amount);
+		// ======================= MSG STR
+		pin_str = PIN.getText().toString();
+		actv_receiver_str = actv_Receiver.getText().toString();
+		amount_str = Amount.getText().toString();
+		sender_imsi = "927708440"; // 998316000 634021450155813
+		actv_receiver_str=actvDev.getText().toString();
+		actvDev.setError("MSISDN is required");
+		PIN.setError("PIN is required");
+		Amount.setError("Amount is required");
+		
+		ds.getAllRec("TRADERS");
+		// ====================== OnClick Transfer Button
+		
+		Transfer.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+				try {//&& actv_receiver_str.length() !=0 
+					//if (amount_str.length()<0 && pin_str.length()<0){
+						// *626*0000*928038956*1#
+					MSGSTR = "*626*" + pin_str + "*" + actv_receiver_str + "*"
+								+ amount_str + "#";
+						ws_obj.setMSGSTR(MSGSTR);
+						ws_obj.setIMSI(sender_imsi);
+						
+						
+							Object transfer_result = ws_obj.CallTransfer(URL,
+								NAMESPACE, METHOD_NAME, SOAP_ACTION); 
+			    	// ===========Intent to open New window ============
+						ShowDailog(transfer_result.toString());
+						
+				/*} else {
+					Toast.makeText(getBaseContext(),
+								"Please Enter Data",
+								+Toast.LENGTH_LONG).show();}*/					
+
+				} catch (Exception e) {
+					/*Toast.makeText(getBaseContext(),
+							e.getMessage() + "Error" + e.getClass().getName(),
+							Toast.LENGTH_LONG).show();*/
+		            ShowDailog("Internet Connection interrupted: "+e.getMessage()+e.getClass().getName());
+				}// try catch Block
+
+			}// ===============
+		}); // ====== end of OnClick ===========================
+
+	} // -------- End of onCreate
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		ds.close();
+		finish();
+	}
+
+	// Create Table Method , will use it in SQLite
+	public String CreateTable(String Table_Name, HashMap hm) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("create table if not exists " + Table_Name + " (");
+		Set s = hm.entrySet();
+		Iterator it = s.iterator();
+		while (it.hasNext()) {
+			Map.Entry me = (Map.Entry) it.next();
+			sb.append(" " + me.getKey() + " " + me.getValue() + ",");
+		}
+		sb.append(")");
+		String SQL = sb.toString();
+		String R_SQL = SQL.replace(",)", ");");
+		return R_SQL;
+	}
+
+	public void ShowDailog(Object result) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("" + result).setPositiveButton("OK ",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						System.out.println("OK CLICKED");
+						/*Intent launch = new Intent(getBaseContext(),
+								VTUActivity.class);
+						launch.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(launch);*/
+					}
+				});
+		builder.setNegativeButton("Reset",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.dismiss();
+						Intent launch = new Intent(getBaseContext(),
+								VTUActivity.class);
+						launch.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(launch);
+					}
+				});
+		AlertDialog alert = builder.create();
+		alert.setTitle("Service Reply ");
+		alert.setIcon(R.drawable.ic);
+		alert.show();
+	}
+	
+	private void CreateMenu(Menu menu) {
+		menu.setQwertyMode(true);
+		MenuItem mnu1 = menu.add(0, 0, 0, "Main Menu");
+		{
+			mnu1.setAlphabeticShortcut('a');
+			mnu1.setIcon(R.drawable.icon);
+		}
+		MenuItem mnu2 = menu.add(0, 1, 1, "Exit");
+		{
+			mnu2.setAlphabeticShortcut('b');
+			//mnu2.setIcon(R.drawable.ic_launcher);
+		}
+	
+	}
+
+	private boolean MenuChoice(MenuItem item) {
+		switch (item.getItemId()) {
+		case 0:
+			Intent mainmenu = new Intent(this, MainPageActivity.class);
+			startActivity(mainmenu);
+
+			return true;
+		case 1:
+			Intent exit = new Intent(this, Sales_CareActivity.class);
+			startActivity(exit);
+			//System.runFinalizersOnExit(true);
+			return true;
+		
+				}
+		return false;
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// getMenuInflater().inflate(R.menu.data_registration_layout, menu);
+		super.onCreateOptionsMenu(menu);
+		CreateMenu(menu);
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return MenuChoice(item);
+	}
+}

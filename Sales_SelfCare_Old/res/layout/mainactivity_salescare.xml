@@ -1,0 +1,182 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    android:orientation="vertical" >
+
+    <!--
+        <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/hello_world"
+        tools:context=".Sales_CareActivity" />
+    -->
+
+
+    <!--
+    <AbsoluteLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_gravity="center"
+     android:background="#FECA08" > 
+     
+     
+     </AbsoluteLayout>
+    -->
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/headerLL"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_gravity="center" 
+            android:background="#FECA08"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <TextView
+               
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                tools:context=".Sales_CareActivity" />
+
+            <ImageView
+           
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="25dp"
+                android:src="@drawable/logos" />
+
+            <ImageView
+              
+                android:layout_width="218dp"
+                android:layout_height="100dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/title" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="62dp"
+            tools:context=".Sales_CareActivity" />
+
+        <Button
+            android:id="@+id/datareg"
+            android:layout_width="230dp"
+            android:layout_height="45dp"
+            android:background="#FECA08"
+            android:text="Data Registration"
+            android:textColor="#ffffff"
+            android:textSize="7pt" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            tools:context=".Sales_CareActivity" />
+
+        <Button
+            android:id="@+id/vtu"
+            android:layout_width="230dp"
+            android:layout_height="45dp"
+            android:background="#FECA08"
+            android:text="VTU Transfer"
+            android:textColor="#ffffff"
+            android:textSize="7pt" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            tools:context=".Sales_CareActivity" />
+
+        <Button
+            android:id="@+id/elec"
+            android:layout_width="230dp"
+            android:layout_height="45dp"
+            android:background="#FECA08"
+            android:text="Purchase Electricity"
+            android:textColor="#ffffff"
+            android:textSize="7pt" />
+
+       <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            tools:context=".Sales_CareActivity" />
+
+        <Button
+            android:id="@+id/exit"
+            android:layout_width="230dp"
+            android:layout_height="45dp"
+            android:background="#FECA08"
+            android:text="Exit"
+            android:textColor="#ffffff"
+            android:textSize="7pt" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="62dp"
+            tools:context=".Sales_CareActivity" />
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <AbsoluteLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="#FECA08" >
+
+                <ImageView
+                    android:id="@+id/footerimage"
+                    android:layout_width="306dp"
+                    android:layout_height="wrap_content"
+                    android:layout_x="12dp"
+                    android:src="@drawable/footer" />
+            </AbsoluteLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
+</ScrollView>

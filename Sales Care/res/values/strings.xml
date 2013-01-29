@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="hello">Hello World, Sales_SelfCareActivity!</string>
+  <string name="app_name">Sales Care</string>
+  <string name="EXTERNAL_URL">http://172.17.10.25:7001/SalesApp/saleswsService</string>
+  <string name="GLOBAL_URL">http://196.29.166.42:7001/SalesApp/saleswsService</string>
+  <string  name="PUBLIC_URL">http://196.29.166.42:7001/SalesCare-Sales_CareProject-context-root/DataRegistrationService </string>
+  <string  name="LOCAL_URL">http://172.26.1.61:7001/SalesCare-Sales_CareProject-context-root/DataRegistrationService </string>
+
+</resources>

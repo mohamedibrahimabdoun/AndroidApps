@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;CheckConnService.java&apos; to &apos;Sales_SelfCare/src/com.salescare.pkg&apos;&#x0D;&#x0A;- Original project: &apos;POS Project&apos;&#x0D;&#x0A;- Destination element: &apos;Sales_SelfCare/src/com.salescare.pkg&apos;&#x0D;&#x0A;- Original element: &apos;app.ws.android.CheckConnService.java&apos;" description="Copy compilation unit" destination="=Sales_SelfCare/src&lt;com.salescare.pkg" element1="/src&lt;app.ws.android{CheckConnService.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1352223032503" units="1" version="1.0"/>
+</session>
